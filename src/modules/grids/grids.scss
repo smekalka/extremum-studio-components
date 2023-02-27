@@ -1,0 +1,258 @@
+.ka-table {
+  background: var(--vscode-editor-background);
+
+  .ka-no-data-cell {
+    color: var(--vscode-settings-headerForeground) !important;
+  }
+}
+
+.ka-row {
+  height: 1px;
+  border-top: none;
+  border-bottom: none;
+  background-color: var(--vscode-welcomePage-tileHoverBackground) !important;
+  border-color: var(--vscode-editor-background) !important;
+}
+
+.ka-thead-cell {
+  background-color: var(--vscode-button-background) !important;
+  color: var(--vscode-button-foreground) !important;
+  border: inset 1px var(--vscode-editor-background) !important;
+  border-width: 1px 0 1px 1px !important;
+  padding: 0 !important;
+}
+
+.ka-thead-cell:last-of-type {
+  border-width: 1px 0 !important;
+}
+
+#selectColumn {
+  width: 24px;
+  padding: 0 2px 0 9px !important;
+}
+
+tr td:first-child {
+  padding: 0 !important;
+}
+
+tr td {
+  padding: 0 !important;
+}
+
+tr td:nth-child(2) {
+  border-width: 1px 0 1px 0px !important;
+}
+
+.ka-cell-text {
+  padding: 6px 9px;
+}
+
+tr th:nth-child(2) {
+  border-width: 1px 0 1px 0px !important;
+}
+
+.ka-cell {
+  height: inherit;
+  color: var(--vscode-settings-headerForeground) !important;
+  vertical-align: top;
+  border: 1px solid var(--vscode-editor-background) !important;
+  border-width: 1px 0 1px 1px !important;
+  line-height: 20px !important;
+}
+
+.ka-cell:last-of-type {
+  border-width: 1px 0 !important;
+}
+
+.ka-thead-cell:not(:first-child) {
+  padding: 6px 9px !important;
+}
+
+.ka-tbody .ka-row-selected {
+  background-color: var(--vscode-scrollbarSlider-hoverBackground) !important;
+}
+
+.ka-header-filter-button {
+  margin-left: 8px;
+}
+
+.ka-icon-sort {
+  font-size: 12px;
+}
+
+.girdsWrapper {
+  @import './variables.scss';
+}
+
+.toolbarBtn {
+  width: 25px;
+  height: 25px;
+  margin: 0 15px 0 0;
+  padding: 0;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--vscode-foreground);
+  }
+}
+
+.toolbarWrapper {
+  border-bottom: 1px var(--vscode-foreground) solid;
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.rowControlsBtn {
+  padding: 0px;
+  margin: 0;
+  background: transparent;
+  width: 18px;
+}
+
+.sucsess {
+  margin-right: 7px !important;
+}
+
+.sucsess:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.buttons {
+  padding-right: 7px !important;
+  padding-left: 7px !important;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+//Editable mode
+
+.editableGridsWrapper {
+  .ka-thead-cell {
+    background-color: var(--vscode-inputValidation-warningBorder) !important;
+  }
+
+  .ka-row {
+    background-color: var(--vscode-badge-background) !important;
+  }
+
+  .editIcon {
+    fill: var(--vscode-inputValidation-warningBorder);
+  }
+}
+
+.searchWrapper {
+  position: relative;
+
+  input {
+    height: 25px;
+    padding-left: 25px !important;
+  }
+
+  .searchIcon {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    left: 5px;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+}
+
+.modified-cell {
+  background: var(--vscode-dropdown-background);
+}
+
+.created-row-cell {
+  background: var(--vscode-editor-focusedStackFrameHighlightBackground) !important;
+}
+
+//Editing
+
+.ka-cell-editor {
+  height: 100%;
+}
+
+.custom-editor {
+  height: 100%;
+}
+
+.custom-form-control {
+  background-color: transparent;
+  min-height: 100% !important;
+
+  height: 100%;
+  padding: 6px 9px;
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+.custom-form-control::placeholder {
+  font-style: italic;
+  color: var(--vscode-errorForeground);
+}
+
+.px-2 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.validator-enabled {
+  textarea {
+    outline: 1px solid var(--vscode-errorForeground) !important;
+    outline-offset: -1px;
+    opacity: 0.7;
+  }
+
+  textarea:focus {
+    outline: 3px solid var(--vscode-errorForeground) !important;
+    outline-offset: -3px;
+    opacity: 1;
+  }
+}
+
+textarea:focus {
+  outline: 2px solid var(--vscode-focusBorder) !important;
+  outline-offset: -2px;
+}
+
+.Disable {
+  pointer-events: none;
+}
+
+// JSON highlight
+pre {
+  color: var(--vscode-editorBracketHighlight-foreground2);
+}
+
+.string {
+  color: var(--vscode-gitDecoration-stageModifiedResourceForeground);
+}
+
+.number {
+  color: var(--vscode-charts-green);
+}
+
+.boolean {
+  color: var(--vscode-focusBorder);
+}
+
+.null {
+  color: var(--vscode-focusBorder);
+}
+
+.key {
+  color: var(--vscode-editorLightBulbAutoFix-foreground);
+}
+
+
+.validator-enabled textarea {
+  outline: none !important;
+}
