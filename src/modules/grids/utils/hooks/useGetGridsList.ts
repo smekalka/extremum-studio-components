@@ -4,7 +4,6 @@ import { HandlerDataFunc } from "../../types/functions";
 import { RowsData } from "../../types/grid";
 
 export const useGetGridsList = (controller: GridsController<any>, vscode: any, dataHandler?: HandlerDataFunc) => {
-  const [firstLoadingData, setFirstLoadingData] = useState<RowsData | []>([]);
   const [gridsData, setGridsData] = useState<RowsData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -26,7 +25,6 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
       });
 
       setGridsData(finalData)
-      setFirstLoadingData(res)
       setIsLoading(false);
     });
   };
