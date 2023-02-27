@@ -14,7 +14,6 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
         controller.getAll().then(res => {
             const finalData = dataHandler ? dataHandler(res) : res
 
-
             vscode.setState({
                 init: finalData,
                 data: finalData,
