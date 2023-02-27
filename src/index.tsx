@@ -1,1 +1,3 @@
-export {default as Grids} from "./modules/grids/Grids"
+import Grids from "./modules/grids";
+
+export {Grids}
