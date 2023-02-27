@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {GridsController} from "../../service/gridsController";
+import GridsController from "../../service/gridsController";
 import {HandlerDataFunc} from "../../types/functions";
 import {RowsData} from "../../types/grid";
 
