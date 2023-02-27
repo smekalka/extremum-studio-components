@@ -1,2 +1,2 @@
-export const ADDITION_COLUMN = "addColumn"
-export const SELECTION_COLUMN = "selectColumn"
+export const ADDITION_COLUMN = 'addColumn';
+export const SELECTION_COLUMN = 'selectColumn';

@@ -1,5 +1,5 @@
 export const generateNewId = (
-  dataArray: Array<{ id: number | string; [key: string]: any }>,
+  dataArray: Array<{ id: number | string; [key: string]: any }>
 ) => {
   let maxValue = dataArray.length;
   return () => {

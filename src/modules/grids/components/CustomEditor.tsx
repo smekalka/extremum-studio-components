@@ -4,19 +4,19 @@ import React, {
   SetStateAction,
   useEffect,
   useRef,
-  useState
-} from "react";
-import { closeEditor, updateCellValue } from "ka-table/actionCreators";
-import "ka-table/style.css";
-import "../grids.scss";
-import { ICellEditorProps } from "ka-table/props";
-import classNames from "classnames";
-import { useOutsideClick } from "../utils/hooks/useOutsideClick";
-import TextareaAutosize from "react-textarea-autosize";
-import { isNewRow } from "../utils/isNewRow";
-import _ from "lodash";
-import { CustomValidateFunc } from "../types/functions";
-import { RowData } from "../types/grid";
+  useState,
+} from 'react';
+import { closeEditor, updateCellValue } from 'ka-table/actionCreators';
+import 'ka-table/style.css';
+import '../grids.scss';
+import { ICellEditorProps } from 'ka-table/props';
+import classNames from 'classnames';
+import { useOutsideClick } from '../utils/hooks/useOutsideClick';
+import TextareaAutosize from 'react-textarea-autosize';
+import { isNewRow } from '../utils/isNewRow';
+import _ from 'lodash';
+import { CustomValidateFunc } from '../types/functions';
+import { RowData } from '../types/grid';
 
 export const CustomEditor: React.FC<ICellEditorProps & {
   validate: CustomValidateFunc;
@@ -24,35 +24,37 @@ export const CustomEditor: React.FC<ICellEditorProps & {
   data: any[];
   setNewRowData: Dispatch<SetStateAction<{ id: string }>>;
 }> = ({
-        rowKeyValue,
-        column,
-        value,
-        validate,
-        dispatch,
-        vscode,
-        rowData,
-        data,
-        setNewRowData
-      }) => {
-  const [currentValueError, setCurrentValueError] = useState<string | undefined>(undefined);
+  rowKeyValue,
+  column,
+  value,
+  validate,
+  dispatch,
+  vscode,
+  rowData,
+  data,
+  setNewRowData,
+}) => {
+  const [currentValueError, setCurrentValueError] = useState<
+    string | undefined
+  >(undefined);
   const [editorValue, setValue] = useState(value);
 
   const editorRef = useRef<HTMLDivElement>(null);
 
   const onChangeHandler: React.ChangeEventHandler<HTMLTextAreaElement> = ({
-                                                                            currentTarget
-                                                                          }) => {
+    currentTarget,
+  }) => {
     setValue(currentTarget.value);
     if (isNewRow(rowKeyValue)) {
       if (!validate(currentTarget.value, column)) {
-        setNewRowData((prevState) => ({
+        setNewRowData(prevState => ({
           ...prevState,
-          [column.key]: currentTarget.value
+          [column.key]: currentTarget.value,
         }));
       } else {
-        setNewRowData((prevState) => ({
+        setNewRowData(prevState => ({
           ...prevState,
-          [column.key]: null
+          [column.key]: null,
         }));
       }
     }
@@ -66,8 +68,8 @@ export const CustomEditor: React.FC<ICellEditorProps & {
       ) {
         const currentCellElement =
           subjectRef.current.parentElement?.parentElement;
-        if (!currentCellElement?.classList.contains("modified-cell")) {
-          currentCellElement?.classList.add("modified-cell");
+        if (!currentCellElement?.classList.contains('modified-cell')) {
+          currentCellElement?.classList.add('modified-cell');
         }
       }
 
@@ -80,7 +82,9 @@ export const CustomEditor: React.FC<ICellEditorProps & {
 
           const changed = vscode.getState().changed;
 
-          const indexOfCopy = changed.findIndex((changedRow: RowData) => changedRow.id === rowData.id);
+          const indexOfCopy = changed.findIndex(
+            (changedRow: RowData) => changedRow.id === rowData.id
+          );
 
           if (indexOfCopy >= 0) {
             changed[indexOfCopy] = rowData;
@@ -94,7 +98,7 @@ export const CustomEditor: React.FC<ICellEditorProps & {
             ids: _.uniq(ids),
             changed,
             newRows: vscode.getState().newRows,
-            removedRows: vscode.getState().removedRows
+            removedRows: vscode.getState().removedRows,
           });
         }
       }
@@ -104,11 +108,9 @@ export const CustomEditor: React.FC<ICellEditorProps & {
     }
   };
 
-
   useEffect(() => {
     setCurrentValueError(validate(editorValue, column));
   }, [editorValue]);
-
 
   useEffect(() => {
     if (currentValueError) {
@@ -117,13 +119,13 @@ export const CustomEditor: React.FC<ICellEditorProps & {
   }, [currentValueError]);
   useOutsideClick<HTMLDivElement>(editorRef, onCloseHandler, [
     editorValue,
-    currentValueError
+    currentValueError,
   ]);
 
   return (
     <div
-      className={classNames("custom-editor", {
-        "validator-enabled": !!currentValueError
+      className={classNames('custom-editor', {
+        'validator-enabled': !!currentValueError,
       })}
       ref={editorRef}
     >

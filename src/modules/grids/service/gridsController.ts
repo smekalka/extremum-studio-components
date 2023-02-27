@@ -64,7 +64,7 @@ export abstract class GridsController<T> implements IGridsController<T> {
   public getAll() {
     console.log("call")
     const requestId = uuidv4();
-    const resAndRejPromise: ResAndRejPromise<T> = <ResAndRejPromise<T>>{};
+    const resAndRejPromise: ResAndRejPromise<T> = {} as ResAndRejPromise<T>;
     const postMsg = (path:string) =>{
       const message: MsgFromController = {
         command: "get-list",

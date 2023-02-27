@@ -1,16 +1,15 @@
-import React, { FC, ReactElement, ReactNode} from "react";
-import { ButtonToolbar } from "react-bootstrap";
-import { search } from "ka-table/actionCreators";
-import { DispatchFunc } from "ka-table/types";
-import { ITableProps } from "ka-table";
-import SearchIcon from "../icons/SearchIcon";
-import classNames from "classnames";
-import { RowsData } from "../types/grid";
-
+import React, { FC, ReactElement, ReactNode } from 'react';
+import { ButtonToolbar } from 'react-bootstrap';
+import { search } from 'ka-table/actionCreators';
+import { DispatchFunc } from 'ka-table/types';
+import { ITableProps } from 'ka-table';
+import SearchIcon from '../icons/SearchIcon';
+import classNames from 'classnames';
+import { RowsData } from '../types/grid';
 
 export interface IToolbarActions {
-  defaultActions: Array<IToolbarAction>,
-  versionsControlActions: Array<IToolbarAction>
+  defaultActions: Array<IToolbarAction>;
+  versionsControlActions: Array<IToolbarAction>;
 }
 
 export interface IToolbarAction {
@@ -29,12 +28,12 @@ interface IGridToolbarProps {
 }
 
 const GridToolbar: FC<IGridToolbarProps> = ({
-                                              vscode,
-                                              actions,
-                                              dispatch,
-                                              tableProps,
-                                              isTable,
-                                            }) => {
+  vscode,
+  actions,
+  dispatch,
+  tableProps,
+  isTable,
+}) => {
   return (
     <div className="toolbarWrapper d-flex justify-content-between">
       <ButtonToolbar>
@@ -42,10 +41,10 @@ const GridToolbar: FC<IGridToolbarProps> = ({
           <a
             key={i}
             className={classNames(
-              "toolbarBtn",
-              "action-label",
-              { "opacity-50": !action.show },
-              !action.show && "Disable"
+              'toolbarBtn',
+              'action-label',
+              { 'opacity-50': !action.show },
+              !action.show && 'Disable'
             )}
             onClick={action.callback}
           >
@@ -54,18 +53,22 @@ const GridToolbar: FC<IGridToolbarProps> = ({
         ))}
       </ButtonToolbar>
       <div className="d-flex align-items-center me-4">
-        <span
-          className="me-4 fw-semibold">Changes: {vscode.getState().changed?.length + vscode.getState().newRows?.length + vscode.getState().removedRows?.length}</span>
+        <span className="me-4 fw-semibold">
+          Changes:{' '}
+          {vscode.getState().changed?.length +
+            vscode.getState().newRows?.length +
+            vscode.getState().removedRows?.length}
+        </span>
 
         <ButtonToolbar>
           {actions.versionsControlActions.map((action, i) => (
             <a
               key={i}
               className={classNames(
-                "toolbarBtn",
-                "action-label",
-                { "opacity-50": !action.show },
-                !action.show && "Disable"
+                'toolbarBtn',
+                'action-label',
+                { 'opacity-50': !action.show },
+                !action.show && 'Disable'
               )}
               onClick={action.callback}
             >
@@ -76,15 +79,15 @@ const GridToolbar: FC<IGridToolbarProps> = ({
       </div>
       <div
         className={classNames(
-          "searchWrapper",
-          { "opacity-50": !isTable },
-          !isTable && "Disable"
+          'searchWrapper',
+          { 'opacity-50': !isTable },
+          !isTable && 'Disable'
         )}
       >
         <input
           type="search"
           defaultValue={tableProps.searchText}
-          onChange={(event) => {
+          onChange={event => {
             dispatch(search(event.currentTarget.value));
           }}
           className="top-element"

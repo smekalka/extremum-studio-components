@@ -1,1 +1,2 @@
-export const getStyleVar = (variable: string) => getComputedStyle(document.documentElement).getPropertyValue(variable);
+export const getStyleVar = (variable: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(variable);

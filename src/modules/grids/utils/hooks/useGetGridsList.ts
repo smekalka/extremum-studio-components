@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { GridsController } from "../../service/gridsController";
 import { HandlerDataFunc } from "../../types/functions";
 import { RowsData } from "../../types/grid";
-import _ from "lodash";
 
 export const useGetGridsList = (controller: GridsController<any>, vscode: any, dataHandler?: HandlerDataFunc) => {
   const [firstLoadingData, setFirstLoadingData] = useState<RowsData | []>([]);

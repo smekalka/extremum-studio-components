@@ -1,10 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
-import { RowsData } from "../types/grid";
+import { Dispatch, SetStateAction } from 'react';
+import { RowsData } from '../types/grid';
 
 export class VersionHandlersController {
-
   private readonly vscode: any;
-
 
   constructor(vscode: any) {
     this.vscode = vscode;
@@ -14,8 +12,10 @@ export class VersionHandlersController {
     setIsTable(prevState => !prevState);
   };
 
-
-  public cancelChanges = (setGridsData: Dispatch<SetStateAction<RowsData | undefined>>, setShowTable: Dispatch<SetStateAction<boolean>>) => () => {
+  public cancelChanges = (
+    setGridsData: Dispatch<SetStateAction<RowsData | undefined>>,
+    setShowTable: Dispatch<SetStateAction<boolean>>
+  ) => () => {
     setGridsData(this.vscode.getState().init);
 
     this.vscode.setState({
@@ -24,9 +24,8 @@ export class VersionHandlersController {
       ids: [],
       changed: [],
       newRows: [],
-      removedRows:[]
+      removedRows: [],
     });
-    setShowTable(true)
+    setShowTable(true);
   };
-
 }

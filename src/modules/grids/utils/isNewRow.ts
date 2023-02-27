@@ -1,4 +1,4 @@
-import { CREATED_ROW_ID, NEW_ROW_ID } from "../const/componentsId";
+import { CREATED_ROW_ID, NEW_ROW_ID } from '../const/componentsId';
 
 export const isNewRow = (rowKeyValue: string) =>
   rowKeyValue.startsWith(NEW_ROW_ID);

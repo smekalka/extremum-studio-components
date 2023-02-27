@@ -7,9 +7,9 @@ import 'ka-table/style.css';
 import '../grids.scss';
 import { IHeadCellProps } from 'ka-table/props';
 
-export const SelectionHeader: React.FC<
-  IHeadCellProps & { selectedData: any[] }
-> = ({ dispatch, areAllRowsSelected, selectedData }) => {
+export const SelectionHeader: React.FC<IHeadCellProps & {
+  selectedData: any[];
+}> = ({ dispatch, areAllRowsSelected, selectedData }) => {
   const [opacity, setOpacity] = useState(0);
 
   return (
@@ -21,7 +21,7 @@ export const SelectionHeader: React.FC<
         opacity: areAllRowsSelected || selectedData.length > 0 ? 1 : opacity,
       }}
       checked={areAllRowsSelected}
-      onChange={(event) => {
+      onChange={event => {
         if (event.currentTarget.checked) {
           dispatch(selectAllFilteredRows());
         } else {
