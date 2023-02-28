@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Column } from 'ka-table/models';
 import { IGridOptions } from './types/configuration';
-import GridsController  from './service/gridsController';
+import {GridsController}  from './service/gridsController';
 import { useGetGridsList } from './utils/hooks/useGetGridsList';
 import GridsView from './GridsView';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';

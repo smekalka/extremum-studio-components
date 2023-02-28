@@ -40,10 +40,10 @@ type GetAllHandler = (
 //   };
 // }
 
-export default abstract class GridsController<T> implements IGridsController<T> {
+export abstract class GridsController<T> implements IGridsController<T> {
 
   private readonly vscode: any;
-  private readonly waitSet = new Map<string, { promise: Promise<Array<T>>, resAndRejPromise: ResAndRejPromise<T> }>;
+  private readonly waitSet = new Map<string, { promise: Promise<Array<T>>, resAndRejPromise: ResAndRejPromise<T> }>();
 
   protected constructor(vscode: any) {
     this.vscode = vscode;
