@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Grids from "./modules/grids/Grids";
 import {GridsController} from "./modules/grids/service/gridsController";
 // const GridsController = require("./modules/grids/service")
