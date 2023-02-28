@@ -1,11 +1,10 @@
 {
   "version": "0.0.0-development",
-  "license": "MIT",
+  "license": "BUSL-1.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=14"
