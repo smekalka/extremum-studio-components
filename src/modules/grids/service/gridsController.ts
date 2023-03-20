@@ -24,21 +24,6 @@ type GetAllHandler = (
   postMsg: (path: string) => void
 ) => void
 
-// export function getAllHandler(path: string,vscode:any) {
-//   const message: MsgFromController = {
-//     command: "get-list",
-//     request: {
-//       id: requestId,
-//       path: "signals.subscriptions"
-//     }
-//   };
-//   vscode.postMessage(message);
-//   console.log(path,"path")
-//   return function(target: any, method: string, descriptor: PropertyDescriptor) {
-//     console.log(target.vscode,"target")
-//     return descriptor.value
-//   };
-// }
 
 export abstract class GridsController<T> implements IGridsController<T> {
 
@@ -54,17 +39,16 @@ export abstract class GridsController<T> implements IGridsController<T> {
     window.addEventListener("message", event => {
       const message = event.data; // The JSON data our extension sent
       if (message.data.id) {
-
-        this.waitSet.get(message.data.id)?.resAndRejPromise.resolve(message.data.data);
+        this.waitSet.get(message.data.id).resAndRejPromise.resolve(message.data.data);
       }
     });
   };
 
 
   public getAll() {
-    console.log("call")
     const requestId = uuidv4();
     const resAndRejPromise: ResAndRejPromise<T> = {} as ResAndRejPromise<T>;
+
     const postMsg = (path:string) =>{
       const message: MsgFromController = {
         command: "get-list",
@@ -81,9 +65,10 @@ export abstract class GridsController<T> implements IGridsController<T> {
         resAndRejPromise.reject = reject;
       }), resAndRejPromise
     });
-    console.log(this.waitSet,"wait",this.vscode)
     this.getAllHandler(postMsg);
+
     const requestPromise = this.waitSet.get(requestId);
+
     return requestPromise!.promise;
   }
 

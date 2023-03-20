@@ -97,6 +97,12 @@ const GridsView: FC<Omit<IGridsProps, 'controller' | 'dataHandler'> &
   const [newRowData, setNewRowData] = useState(initialNewRow);
 
   const childComponents: ChildComponents = {
+    dataRow:{
+      elementAttributes: (props) => ({
+        onClick:(e,extendedEvent) => {
+          options.onRowClickHandler && options.onRowClickHandler(props, e,extendedEvent)
+        }
+      })},
     cell: {
       elementAttributes: ({ rowKeyValue, column, rowKeyField }) => {
         const cellClassNames = [];

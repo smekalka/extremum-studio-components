@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Column } from 'ka-table/models';
 import { IGridOptions } from './types/configuration';
 import {GridsController}  from './service/gridsController';
@@ -27,7 +27,6 @@ const Grids: FC<IGridsProps> = ({
     isLoading,
   } = useGetGridsList(controller, gridsViewProps.vscode, dataHandler);
 
-  useEffect(() => console.log(gridsData, 'gridsData'), [gridsData]);
   return !isLoading ? (
     gridsData && (
       <GridsView

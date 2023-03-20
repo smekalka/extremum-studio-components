@@ -25,7 +25,10 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
 
             setGridsData(finalData)
             setIsLoading(false);
-        }).catch(err => setError(err))
+        }).catch(err => {
+            console.log("Catch error from grids,check columns",err)
+            setError(err)
+        })
     };
 
     useEffect(() => {
@@ -43,9 +46,7 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
             setGridsData(dataFromState);
         }
     }, []);
-    useEffect(() => {
-        console.log(gridsData, "GRIDSDATA")
-    }, [gridsData])
 
-    return {gridsData, setGridsData, updateDataFromServe, error, isLoading};
+
+    return { gridsData, setGridsData, updateDataFromServe, error, isLoading};
 };
