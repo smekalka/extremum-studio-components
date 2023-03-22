@@ -64,8 +64,7 @@ export class GridConfigurator {
         if (column.key !== ADDITION_COLUMN) {
             if (this.options.validation) {
                 return (
-                    this.options.validation(value, column) ||
-                    this.useDefaultValidation(value, column)
+                    this.options.validation(value, column)
                 );
             } else {
                 return this.useDefaultValidation(value, column);
