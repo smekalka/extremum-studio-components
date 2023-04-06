@@ -36,11 +36,15 @@ function syntaxHighlight(json: string) {
 
 const ChangesManager: FC<ISubscriptionsProps> = ({ vscode }) => {
   const { changed, newRows, removedRows } = vscode.getState();
+  const newRowsWithoutId = newRows.map(row=>{
+      const {id,...args} = row
+      return {...args}
+  })
   return (
     <pre
       dangerouslySetInnerHTML={{
         __html: syntaxHighlight(
-          JSON.stringify({ changed, newRows, removedRows }, null, 2)
+          JSON.stringify({ changed, newRows:newRowsWithoutId, removedRows }, null, 2)
         ),
       }}
     />

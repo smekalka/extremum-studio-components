@@ -5,6 +5,7 @@ import { ITableProps } from 'ka-table';
 import { kaPropsUtils } from 'ka-table/utils';
 import { Dispatch, SetStateAction } from 'react';
 import { RowData, RowsData } from '../types/grid';
+import {CREATED_ROW_ID} from "../const/componentsId";
 
 export class DefaultActionsHandler {
   private readonly dispatch: DispatchFunc;
@@ -50,19 +51,22 @@ export class DefaultActionsHandler {
       .changed.filter(
         (changed: RowData) => !this.vscode.getState().ids.includes(changed.id)
       );
+    const createdWithoutRemoved = this.vscode
+      .getState()
+      .newRows.filter(
+        (created: RowData) => {
+          return !((kaPropsUtils.getSelectedData(this.tableProps)).map(element=>element.id).includes(created.id))
+        }
+      );
     this.vscode.setState({
       init: this.vscode.getState().init,
       data: dataWithoutRemoved,
       ids: this.vscode.getState().ids,
       changed: changedWithoutRemoved,
-      newRows: this.vscode.getState().newRows,
-      removedRows: kaPropsUtils.getSelectedData(this.tableProps) || [],
+      newRows: createdWithoutRemoved,
+      removedRows: (kaPropsUtils.getSelectedData(this.tableProps)).filter( item =>!item.id.startsWith(CREATED_ROW_ID)) || [],
     });
     this.setGridsData(dataWithoutRemoved);
 
-    // this.vscode.postMessage({
-    //   command: "remove",
-    //   selectedData: selectedData
-    // });
   };
 }

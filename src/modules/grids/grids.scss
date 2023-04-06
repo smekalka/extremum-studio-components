@@ -223,6 +223,13 @@ textarea:focus {
   outline-offset: -2px;
 }
 
+.outline-none {
+  textarea:focus {
+    outline: 1px solid var(--vscode-focusBorder);
+    cursor: default !important;
+
+  }
+}
 .Disable {
   pointer-events: none;
 }
