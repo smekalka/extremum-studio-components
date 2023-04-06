@@ -105,7 +105,9 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> &
         dataRow: {
             elementAttributes: (props) => ({
                 onClick: (e, extendedEvent) => {
-                    options.onRowClickHandler && options.onRowClickHandler(props, e, extendedEvent)
+                    if (props.rowData.id !==NEW_ROW_ID){
+                        options.onRowClickHandler && options.onRowClickHandler(props, e, extendedEvent)
+                    }
                 }
             })
         },
@@ -157,18 +159,31 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> &
                 } else if (props.column.key === ADDITION_COLUMN) {
                     return <></>;
                 } else {
-                    return (
-                        <CustomEditor
-                            isEditable={ options.configureEditableColumns ? options.configureEditableColumns(props.column) : false}
-                            setNewRowData={setNewRowData}
-                            validate={gridConfigurator.useFinalValidation}
-                            {...props}
-                            vscode={vscode}
-                            data={data}
-                            rowData={props.rowData}
-                        />
-                    );
-
+                    if (props.rowData.id === NEW_ROW_ID) {
+                        return (
+                            <CustomEditor
+                                isEditable={ true }
+                                setNewRowData={setNewRowData}
+                                validate={gridConfigurator.useFinalValidation}
+                                {...props}
+                                vscode={vscode}
+                                data={data}
+                                rowData={props.rowData}
+                            />
+                        );
+                    } else {
+                        return (
+                            <CustomEditor
+                                isEditable={options.configureEditableColumns ? options.configureEditableColumns(props.column, props.rowData) : false}
+                                setNewRowData={setNewRowData}
+                                validate={gridConfigurator.useFinalValidation}
+                                {...props}
+                                vscode={vscode}
+                                data={data}
+                                rowData={props.rowData}
+                            />
+                        );
+                    }
 
                 }
             },

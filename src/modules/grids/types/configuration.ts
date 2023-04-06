@@ -15,5 +15,5 @@ export interface IGridOptions {
     toolbarActions?: Array<IToolbarAction>;
     onRowClickHandler?: (gridsProps:PropsWithChildren<IDataRowProps>,e: React.MouseEvent<HTMLElement, MouseEvent>, extendedEvent: AttributeTableData<IDataRowProps>) => void,
     fullCreatingItemMode?:IFullCreatingItemMode,
-    configureEditableColumns?:(column:Column) => boolean
+    configureEditableColumns?:(column:Column,rowData:any) => boolean
 }
