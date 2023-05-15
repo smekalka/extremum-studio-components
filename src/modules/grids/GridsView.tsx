@@ -38,9 +38,11 @@ import { GridConfigurator } from './utils/gridConfigurator';
 import { IGridsProps } from './Grids';
 import { RowData, RowsData } from './types/grid';
 import { useTranslation } from 'react-i18next';
-import MinusIcon from './icons/MinusIcon';
+// import MinusIcon from './icons/MinusIcon';
 import ItemCreator from './item-creator/ItemCreator';
 import { insertRow } from 'ka-table/actionCreators';
+// import CloseIcon from './icons/CloseIcon';
+import { translate } from '../../i18next/i18next.js';
 
 export interface IGridsViewProps {
   data: RowsData;
@@ -56,12 +58,23 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
   options,
   updateDataFromServe,
   controller,
+  language,
 }) => {
   const { t } = useTranslation();
   const gridConfigurator = new GridConfigurator(options, columns, data, t);
   const [showTable, setShowTable] = useState(true);
   const [isAdditionNewRow, setIsAdditionNewRow] = useState(false);
   const [showCreatingItem, setShowCreatingItem] = useState(false);
+
+  const [addSign, setAddSign] = useState('Add');
+  const [deleteSign, setDeleteSign] = useState('Delete');
+  const [requestSign, setRequestSign] = useState('Request');
+  const [showDifferenceSign, setShowDifferenceSign] = useState(
+    'Show difference'
+  );
+  const [pushSign, setPushSign] = useState('Push');
+  const [cancelChangesSign, setCancelChangesSign] = useState('Cancel changes');
+  const [noDataSign, setNoDataSign] = useState('No data found');
 
   const [tableProps, changeTableProps] = useState(
     gridConfigurator.getTablePropsConfigurations()
@@ -76,6 +89,19 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
   const dispatch: DispatchFunc = action => {
     changeTableProps((prevState: ITableProps) => kaReducer(prevState, action));
   };
+
+  useEffect(() => {
+    async function getSigns() {
+      setAddSign(await translate('Add', language));
+      setDeleteSign(await translate('Delete', language));
+      setRequestSign(await translate('Request', language));
+      setShowDifferenceSign(await translate('Show difference', language));
+      setPushSign(await translate('Push', language));
+      setCancelChangesSign(await translate('Cancel changes', language));
+      setNoDataSign(await translate('No data found', language));
+    }
+    getSigns();
+  }, []);
 
   const defaultActionsHandler = new DefaultActionsHandler(
     tableProps,
@@ -229,7 +255,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
       content: () => <FilterIcon />,
     },
     noDataRow: {
-      content: () => 'No Data Found',
+      content: () => noDataSign,
     },
   };
 
@@ -244,25 +270,25 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
             setIsAdditionNewRow
           ),
       show: showTable && !showCreatingItem && !isAdditionNewRow,
-      tooltip: 'Add new row',
+      tooltip: addSign,
     },
-    {
-      icon: <MinusIcon />,
-      callback: () => setShowCreatingItem(false),
-      show: showCreatingItem,
-      tooltip: 'Delete row',
-    },
+    // {
+    //   icon: <CloseIcon />,
+    //   callback: () => setShowCreatingItem(false),
+    //   show: showCreatingItem,
+    //   tooltip: 'Cancel adding',
+    // },
     {
       icon: <TrashIcon />,
       callback: defaultActionsHandler.removeSelectedRow,
       show: showTable && selectedData.length > 0,
-      tooltip: 'Delete',
+      tooltip: deleteSign,
     },
     {
       icon: <RefreshIcon />,
       callback: updateDataFromServe,
       show: showTable && !showCreatingItem && !isAdditionNewRow,
-      tooltip: 'Request',
+      tooltip: requestSign,
     },
   ];
 
@@ -275,7 +301,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
       icon: <CompareIcon />,
       callback: versionHandlersController.gitCompare(setShowTable),
       show: gridsHaveChanges,
-      tooltip: 'Show difference',
+      tooltip: showDifferenceSign,
     },
     {
       icon: <PushIcon />,
@@ -284,7 +310,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
         updateDataFromServe
       ),
       show: !showTable && gridsHaveChanges,
-      tooltip: 'Push',
+      tooltip: pushSign,
     },
     {
       icon: <RedoIcon />,
@@ -293,7 +319,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
         setShowTable
       ),
       show: !showTable && gridsHaveChanges,
-      tooltip: 'Cancel changes',
+      tooltip: cancelChangesSign,
     },
   ];
   const actions: IToolbarActions = options.toolbarActions
