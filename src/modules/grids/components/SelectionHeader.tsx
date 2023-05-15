@@ -3,8 +3,6 @@ import {
   deselectAllFilteredRows,
   selectAllFilteredRows,
 } from 'ka-table/actionCreators';
-import 'ka-table/style.css';
-import '../grids.scss';
 import { IHeadCellProps } from 'ka-table/props';
 
 export const SelectionHeader: React.FC<IHeadCellProps & {

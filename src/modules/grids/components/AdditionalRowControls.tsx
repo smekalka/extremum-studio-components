@@ -1,7 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { closeEditor, deleteRow, updateRow } from 'ka-table/actionCreators';
-import 'ka-table/style.css';
-import '../grids.scss';
 import { ICellEditorProps } from 'ka-table/props';
 import SaveIcon from '../icons/SaveIcon';
 import CloseIcon from '../icons/CloseIcon';

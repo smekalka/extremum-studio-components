@@ -4,8 +4,6 @@ import {
   selectRow,
   selectRowsRange,
 } from 'ka-table/actionCreators';
-import 'ka-table/style.css';
-import '../grids.scss';
 import { ICellTextProps } from 'ka-table/props';
 
 export const SelectionCell: React.FC<ICellTextProps> = ({
