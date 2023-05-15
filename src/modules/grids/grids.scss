@@ -17,7 +17,10 @@
 .ka-thead-cell {
   background-color: var(--vscode-button-background) !important;
   color: var(--vscode-button-foreground) !important;
-  border: inset 1px var(--vscode-editor-background) !important;
+  border-top-style: inset !important;
+  border-right-style: inset !important;
+  border-left-style: inset !important;
+  border-bottom-style: inset !important;
   border-width: 1px 0 1px 1px !important;
   padding: 0 !important;
 }
@@ -40,7 +43,7 @@ tr td {
 }
 
 tr td:nth-child(2) {
-  border-width: 1px 0 1px 0px !important;
+  border-width: 1px 0 1px 0 !important;
 }
 
 .ka-cell-text {
@@ -48,14 +51,17 @@ tr td:nth-child(2) {
 }
 
 tr th:nth-child(2) {
-  border-width: 1px 0 1px 0px !important;
+  border-width: 1px 0 1px 0 !important;
 }
 
 .ka-cell {
   height: inherit;
   color: var(--vscode-settings-headerForeground) !important;
   vertical-align: top;
-  border: 1px solid var(--vscode-editor-background) !important;
+  border-top-style: solid !important;
+  border-right-style: solid !important;
+  border-left-style: solid !important;
+  border-bottom-style: solid !important;
   border-width: 1px 0 1px 1px !important;
   line-height: 20px !important;
 }
@@ -105,7 +111,7 @@ tr th:nth-child(2) {
 }
 
 .rowControlsBtn {
-  padding: 0px;
+  padding: 0;
   margin: 0;
   background: transparent;
   width: 18px;
@@ -262,4 +268,13 @@ pre {
 
 .validator-enabled textarea {
   outline: none !important;
+}
+
+.ka-thead-cell-resize {
+  background-color: transparent !important;
+  left: 11px !important;
+}
+
+.ka-thead-fixed {
+  position: inherit !important;
 }
