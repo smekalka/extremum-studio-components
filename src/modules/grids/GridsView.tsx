@@ -362,6 +362,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
           {...tableProps}
           dispatch={dispatch}
           childComponents={childComponents}
+          columnResizing={true}
         />
       ) : (
         <ChangesManager vscode={vscode} />
