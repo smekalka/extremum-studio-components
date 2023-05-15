@@ -64,6 +64,7 @@ tr th:nth-child(2) {
   border-bottom-style: solid !important;
   border-width: 1px 0 1px 1px !important;
   line-height: 20px !important;
+  word-break: break-all;
 }
 
 .ka-cell:last-of-type {
