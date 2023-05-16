@@ -40,9 +40,8 @@ const GridToolbar: FC<IGridToolbarProps> = ({
     <div className="toolbarWrapper d-flex justify-content-between">
       <ButtonToolbar>
         {actions.defaultActions.map((action, i) => (
-          <div className="toolbarBtn" title={action.tooltip}>
+          <div key={i} className="toolbarBtn" title={action.tooltip}>
             <a
-              key={i}
               className={classNames(
                 'action-label',
                 { 'opacity-50': !action.show },
@@ -65,9 +64,8 @@ const GridToolbar: FC<IGridToolbarProps> = ({
 
         <ButtonToolbar>
           {actions.versionsControlActions.map((action, i) => (
-            <div className="toolbarBtn" title={action.tooltip}>
+            <div key={i} className="toolbarBtn" title={action.tooltip}>
               <a
-                key={i}
                 className={classNames(
                   'action-label',
                   { 'opacity-50': !action.show },

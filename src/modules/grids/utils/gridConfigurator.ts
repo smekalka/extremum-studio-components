@@ -4,18 +4,6 @@ import { ADDITION_COLUMN, SELECTION_COLUMN } from '../const/uniqueColumnKey';
 import { EditingMode, FilteringMode, ITableProps, SortingMode } from 'ka-table';
 import { Column } from 'ka-table/models';
 import { RowsData } from '../types/grid';
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
-i18n.use(initReactI18next).init({
-  resources: {
-    ru: {
-      translation: {
-        'Field can not be empty': 'Поле не может быть пустым',
-      },
-    },
-  },
-});
 
 export class GridConfigurator {
   private readonly options: IGridOptions;

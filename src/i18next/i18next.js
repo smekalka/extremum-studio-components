@@ -14,6 +14,7 @@ export async function translate(key, language) {
           Push: 'Отправить',
           'Cancel changes': 'Отменить изменения',
           'No data found': 'Данные не найдены',
+          'Field can not be empty': 'Поле не может быть пустым',
         },
       },
     },

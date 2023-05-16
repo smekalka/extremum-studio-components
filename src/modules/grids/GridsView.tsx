@@ -188,38 +188,26 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
         } else if (props.column.key === ADDITION_COLUMN) {
           return <></>;
         } else {
-          if (props.rowData.id === NEW_ROW_ID) {
-            return (
-              <CustomEditor
-                isEditable={true}
-                setNewRowData={setNewRowData}
-                validate={gridConfigurator.useFinalValidation}
-                {...props}
-                vscode={vscode}
-                data={data}
-                rowData={props.rowData}
-              />
-            );
-          } else {
-            return (
-              <CustomEditor
-                isEditable={
-                  options.configureEditableColumns
-                    ? options.configureEditableColumns(
-                        props.column,
-                        props.rowData
-                      )
-                    : false
-                }
-                setNewRowData={setNewRowData}
-                validate={gridConfigurator.useFinalValidation}
-                {...props}
-                vscode={vscode}
-                data={data}
-                rowData={props.rowData}
-              />
-            );
-          }
+          return (
+            <CustomEditor
+              isEditable={
+                props.rowData.id === NEW_ROW_ID
+                  ? true
+                  : options.configureEditableColumns
+                  ? options.configureEditableColumns(
+                      props.column,
+                      props.rowData
+                    )
+                  : false
+              }
+              setNewRowData={setNewRowData}
+              validate={gridConfigurator.useFinalValidation}
+              {...props}
+              vscode={vscode}
+              data={data}
+              rowData={props.rowData}
+            />
+          );
         }
       },
     },
@@ -272,12 +260,6 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
       show: showTable && !showCreatingItem && !isAdditionNewRow,
       tooltip: addSign,
     },
-    // {
-    //   icon: <CloseIcon />,
-    //   callback: () => setShowCreatingItem(false),
-    //   show: showCreatingItem,
-    //   tooltip: 'Cancel adding',
-    // },
     {
       icon: <TrashIcon />,
       callback: defaultActionsHandler.removeSelectedRow,
