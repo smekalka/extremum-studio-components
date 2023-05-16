@@ -61,53 +61,48 @@ export const CustomEditor: React.FC<ICellEditorProps & {
       }
     }
   };
+
   const onCloseHandler = (subjectRef: RefObject<HTMLDivElement>) => {
-    if (!currentValueError) {
-      if (
-        subjectRef.current &&
-        editorValue !== value &&
-        !isNewRow(rowKeyValue)
-      ) {
-        const currentCellElement =
-          subjectRef.current.parentElement?.parentElement;
-        if (!currentCellElement?.classList.contains('modified-cell')) {
-          currentCellElement?.classList.add('modified-cell');
-        }
+    if (subjectRef.current && editorValue !== value && !isNewRow(rowKeyValue)) {
+      const currentCellElement =
+        subjectRef.current.parentElement?.parentElement;
+      if (!currentCellElement?.classList.contains('modified-cell')) {
+        currentCellElement?.classList.add('modified-cell');
       }
-
-      rowData[column.key] = editorValue;
-
-      if (!isNewRow(rowKeyValue)) {
-        if (editorValue !== value) {
-          const ids = vscode.getState().ids;
-          ids.push(rowData.id);
-
-          const changed = vscode.getState().changed;
-
-          const indexOfCopy = changed.findIndex(
-            (changedRow: RowData) => changedRow.id === rowData.id
-          );
-
-          if (indexOfCopy >= 0) {
-            changed[indexOfCopy] = rowData;
-          } else {
-            changed.push(rowData);
-          }
-
-          vscode.setState({
-            init: vscode.getState().init,
-            data: data,
-            ids: _.uniq(ids),
-            changed,
-            newRows: vscode.getState().newRows,
-            removedRows: vscode.getState().removedRows,
-          });
-        }
-      }
-
-      dispatch(closeEditor(rowKeyValue, column.key));
-      dispatch(updateCellValue(rowKeyValue, column.key, editorValue));
     }
+
+    rowData[column.key] = editorValue;
+
+    if (!isNewRow(rowKeyValue)) {
+      if (editorValue !== value) {
+        const ids = vscode.getState().ids;
+        ids.push(rowData.id);
+
+        const changed = vscode.getState().changed;
+
+        const indexOfCopy = changed.findIndex(
+          (changedRow: RowData) => changedRow.id === rowData.id
+        );
+
+        if (indexOfCopy >= 0) {
+          changed[indexOfCopy] = rowData;
+        } else {
+          changed.push(rowData);
+        }
+
+        vscode.setState({
+          init: vscode.getState().init,
+          data: data,
+          ids: _.uniq(ids),
+          changed,
+          newRows: vscode.getState().newRows,
+          removedRows: vscode.getState().removedRows,
+        });
+      }
+    }
+
+    dispatch(closeEditor(rowKeyValue, column.key));
+    dispatch(updateCellValue(rowKeyValue, column.key, editorValue));
   };
 
   useEffect(() => {
@@ -119,6 +114,7 @@ export const CustomEditor: React.FC<ICellEditorProps & {
       dispatch(updateCellValue(rowKeyValue, column.key, editorValue));
     }
   }, [currentValueError]);
+
   useOutsideClick<HTMLDivElement>(editorRef, onCloseHandler, [
     editorValue,
     currentValueError,
@@ -128,9 +124,7 @@ export const CustomEditor: React.FC<ICellEditorProps & {
     <div
       className={classNames(
         'custom-editor',
-        {
-          'validator-enabled': !!currentValueError,
-        },
+        { 'validator-enabled': !!currentValueError },
         { 'outline-none': !isEditable }
       )}
       ref={editorRef}
