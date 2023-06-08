@@ -47,7 +47,7 @@ import { translate } from '../../i18next/i18next.js';
 export interface IGridsViewProps {
   data: RowsData;
   setGridsData: Dispatch<SetStateAction<RowsData | undefined>>;
-  updateDataFromServe: () => void;
+  updateDataFromServe: (isRefresh?:boolean) => void;
 }
 
 const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
@@ -268,7 +268,9 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
     },
     {
       icon: <RefreshIcon />,
-      callback: updateDataFromServe,
+      callback:() =>{
+        updateDataFromServe(false)
+      } ,
       show: showTable && !showCreatingItem && !isAdditionNewRow,
       tooltip: requestSign,
     },

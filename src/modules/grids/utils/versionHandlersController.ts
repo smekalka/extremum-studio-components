@@ -1,13 +1,14 @@
 import {Dispatch, SetStateAction} from 'react';
 import {RowsData} from '../types/grid';
-import {GridsController} from "../service/gridsController";
 
 export class VersionHandlersController {
     private readonly vscode: any;
-    private readonly controller:GridsController<any>
-    constructor(vscode: any,controller:GridsController<any>) {
+
+    // private readonly controller: GridsController<any>
+
+    constructor(vscode: any) {
         this.vscode = vscode;
-        this.controller = controller;
+        // this.controller = controller;
     }
 
     public gitCompare = (setIsTable: Dispatch<SetStateAction<boolean>>) => () => {
@@ -18,9 +19,18 @@ export class VersionHandlersController {
         setShowTable: Dispatch<SetStateAction<boolean>>,
         updateDataFromServe: () => void
     ) => () => {
-        this.controller.updateItems(this.vscode.getState().changed)
-        this.controller.createItems(this.vscode.getState().newRows)
-        this.controller.removeItems(this.vscode.getState().removedRows)
+        // this.controller.updateItems(this.vscode.getState().changed)
+        // this.controller.createItems(this.vscode.getState().newRows)
+        // this.controller.removeItems(this.vscode.getState().removedRows)
+
+
+        this.vscode.postMessage({
+            command: "pushChanges",
+            state: {
+                correctItems: this.vscode.getState().data,
+                ...this.vscode.getState()
+            }
+        })
 
         this.vscode.setState({
             init: this.vscode.getState().init,
@@ -30,8 +40,10 @@ export class VersionHandlersController {
             newRows: [],
             removedRows: [],
         });
+
+
         setShowTable(true);
-        updateDataFromServe();
+        updateDataFromServe
     }
 
     public cancelChanges = (
@@ -48,6 +60,18 @@ export class VersionHandlersController {
             newRows: [],
             removedRows: [],
         });
+
+        this.vscode.postMessage({
+            command: "cancelChanges",
+            state: {
+                init: this.vscode.getState().init,
+                data: this.vscode.getState().init,
+                ids: [],
+                changed: [],
+                newRows: [],
+                removedRows: [],
+            }
+        })
         setShowTable(true);
     };
 

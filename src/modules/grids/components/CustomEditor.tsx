@@ -90,14 +90,16 @@ export const CustomEditor: React.FC<ICellEditorProps & {
           changed.push(rowData);
         }
 
-        vscode.setState({
+        const state = {
           init: vscode.getState().init,
           data: data,
           ids: _.uniq(ids),
           changed,
           newRows: vscode.getState().newRows,
           removedRows: vscode.getState().removedRows,
-        });
+        }
+        vscode.postMessage({command:"changeItem",state})
+        vscode.setState(state);
       }
     }
 

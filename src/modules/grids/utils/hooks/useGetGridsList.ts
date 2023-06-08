@@ -8,35 +8,62 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const updateDataFromServe = () => {
+    const updateDataFromServe = (isRefresh?: boolean) => {
 
         setIsLoading(true);
         controller.getAll().then(res => {
             const finalData = dataHandler ? dataHandler(res) : res
 
-            vscode.setState({
+            console.log(finalData,"finalData")
+            const state = {
                 init: finalData,
                 data: finalData,
                 ids: [],
                 changed: [],
                 newRows: [],
                 removedRows: [],
-            });
+            }
+            vscode.setState(state);
+
+            if (isRefresh === false) {
+                vscode.postMessage({command:"updateItemsFromGround",state})
+
+            }
 
             setGridsData(finalData)
             setIsLoading(false);
         }).catch(err => {
-            console.log("Catch error from grids,check columns",err)
+            console.log("Catch error from grids,check columns", err)
             setError(err)
         })
     };
 
     useEffect(() => {
-        const vscodeState = vscode.getState();
+        window.addEventListener("message", event => {
+            console.log(event,"EVEEEEnt")
+            if (event.data.data.mesageType === "updateGrids"){
+                console.log("AHAHAHAHAH")
+                updateDataFromServe()
+            }
+        });
+        console.log(window, "window")
 
+        // @ts-ignore
+        console.log(window.additionalWebviewData?.state, "state")
+        // const vscodeState = vscode.getState();
+        // @ts-ignore
+        const vscodeState = window.additionalWebviewData?.state
+
+        // if (!vscodeState) {
+        //     vscode.setState({})
+        // }
         if (!vscodeState) {
             vscode.setState({})
+        } else {
+            // @ts-ignore
+            vscode.setState(window.additionalWebviewData?.state)
         }
+
 
         const dataFromState = vscode.getState().data;
 
@@ -48,5 +75,5 @@ export const useGetGridsList = (controller: GridsController<any>, vscode: any, d
     }, []);
 
 
-    return { gridsData, setGridsData, updateDataFromServe, error, isLoading};
+    return {gridsData, setGridsData, updateDataFromServe, error, isLoading};
 };

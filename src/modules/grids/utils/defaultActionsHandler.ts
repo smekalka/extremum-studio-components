@@ -58,14 +58,18 @@ export class DefaultActionsHandler {
           return !((kaPropsUtils.getSelectedData(this.tableProps)).map(element=>element.id).includes(created.id))
         }
       );
-    this.vscode.setState({
+
+    const state = {
       init: this.vscode.getState().init,
       data: dataWithoutRemoved,
       ids: this.vscode.getState().ids,
       changed: changedWithoutRemoved,
       newRows: createdWithoutRemoved,
       removedRows: (kaPropsUtils.getSelectedData(this.tableProps)).filter( item =>!item.id.startsWith(CREATED_ROW_ID)) || [],
-    });
+    }
+    this.vscode.setState(state);
+
+    this.vscode.postMessage({command:"removeItem",state})
     this.setGridsData(dataWithoutRemoved);
 
   };

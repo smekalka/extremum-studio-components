@@ -14,6 +14,7 @@ type MsgFromController = {
     request: {
         id: string,
         path: string,
+        modelType: string
     }
 }
 
@@ -36,9 +37,9 @@ export abstract class GridsController<T> implements IGridsController<T> {
     private readonly waitSet = new Map<string, { promise: Promise<Array<T>>, resAndRejPromise: ResAndRejPromise<T> }>();
     private readonly modelName: string;
     private readonly itemIdType: string;
-    private readonly itemSDKPath:string
+    private readonly itemSDKPath: string
 
-    protected constructor(vscode: any, modelName, itemIdType: string,itemSDKPath:string) {
+    protected constructor(vscode: any, modelName, itemIdType: string, itemSDKPath: string) {
         this.vscode = vscode;
         this.modelName = modelName;
         this.itemIdType = itemIdType;
@@ -51,7 +52,11 @@ export abstract class GridsController<T> implements IGridsController<T> {
         window.addEventListener("message", event => {
             const message = event.data; // The JSON data our extension sent
             if (message.data.id) {
+                console.log(this.waitSet.get(message.data.id),"ASSSSSSSS")
                 this.waitSet.get(message.data.id).resAndRejPromise.resolve(message.data.data);
+            }
+            if (event.data.mesageType === "updateGrids"){
+                this.getAll();
             }
         });
     };
@@ -66,7 +71,8 @@ export abstract class GridsController<T> implements IGridsController<T> {
                 command: "get-list",
                 request: {
                     id: requestId,
-                    path:this.itemSDKPath,
+                    path: this.itemSDKPath,
+                    modelType: this.modelName,
                 }
             };
             this.vscode.postMessage(message);

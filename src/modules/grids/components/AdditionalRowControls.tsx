@@ -39,14 +39,17 @@ export const AdditionalRowControls: React.FC<ICellEditorProps & {
     };
     dispatch(updateRow(createdRowData));
 
-    vscode.setState({
+    const state = {
       init: vscode.getState().init,
       data: [...vscode.getState().data, createdRowData],
       ids: [...vscode.getState().ids, `${CREATED_ROW_ID}-${transientId}`],
       changed: vscode.getState().changed,
       newRows: [...vscode.getState().newRows, createdRowData],
       removedRows: vscode.getState().removedRows,
-    });
+    }
+    vscode.setState(state);
+
+    vscode.postMessage({command:"addNewItem",state})
 
     dispatch(deleteRow(NEW_ROW_ID));
     dispatch(closeEditor(NEW_ROW_ID, ADDITION_COLUMN));
