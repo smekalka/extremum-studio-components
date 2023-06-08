@@ -57,7 +57,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
   setGridsData,
   options,
   updateDataFromServe,
-  controller,
+  // controller,
   language,
 }) => {
   const { t } = useTranslation();
@@ -112,7 +112,7 @@ const GridsView: FC<Omit<IGridsProps, 'dataHandler'> & IGridsViewProps> = ({
 
   const versionHandlersController = new VersionHandlersController(
     vscode,
-    controller
+    // controller
   );
 
   const selectedData = kaPropsUtils.getSelectedData(tableProps);
